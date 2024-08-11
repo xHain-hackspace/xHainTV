@@ -1,0 +1,40 @@
+---
+- name: Setup directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    mode: 0755
+  with_items:
+    - /etc/magic-mirror
+    - /etc/magic-mirror/config
+    - /etc/magic-mirror/css
+    - /etc/magic-mirror/modules
+
+- name: Install MM² config
+  ansible.builtin.template:
+    src: config.js.j2
+    dest: /etc/magic-mirror/config/config.js
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install MM² css
+  ansible.builtin.template:
+    src: custom.css.j2
+    dest: /etc/magic-mirror/css/custom.css
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install Plugin - MMM-PublicTransportBerlin
+  ansible.builtin.git:
+    repo: https://github.com/deg0nz/MMM-PublicTransportBerlin.git
+    dest: /etc/magic-mirror/modules/MMM-PublicTransportBerlin
+    depth: 1
+
+- name: Install Plugin - MMM-OnSpotify
+  ansible.builtin.git:
+    repo: https://github.com/Fabrizz/MMM-OnSpotify.git
+    dest: /etc/magic-mirror/modules/MMM-OnSpotify
+    depth: 1
