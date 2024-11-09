@@ -45,11 +45,19 @@ let config = {
             position: "top_left"
         },
         {
-            module: "MMM-OnSpotify",
+            module: "calendar",
+            header: "DE Holidays",
             position: "top_left",
             config: {
-                displayWhenEmpty: "user",
-            },
+                maximumEntries: 3,
+                calendars: [
+                    {
+                        fetchInterval: 7 * 24 * 60 * 60 * 1000,
+                        symbol: "calendar-check",
+                        url: "https://ics.calendarlabs.com/46/25eba6fe/Germany_Holidays.ics"
+                    }
+                ]
+            }
         },
         {
             module: "calendar",
@@ -57,7 +65,7 @@ let config = {
             position: "middle_center",
             config: {
                 fade: false,
-                maximumEntries: 15,
+                maximumEntries: 12,
                 // fadePoint: 0.1,
                 calendars: [{
                     fetchInterval: 7 * 24 * 60 * 60 * 1000,
@@ -103,7 +111,8 @@ let config = {
                 stationId: "900120014",
                 marqueeLongDirections: false,
                 travelTimeToStation: 2,
-                maxReachableDepartures: 5,
+                maxReachableDepartures: 8,
+                fadeReachableDepartures: false
             },
         },
     ]
